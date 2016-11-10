@@ -134,7 +134,7 @@ public class RefreshLayout extends ViewGroup {
             // 为header添加默认的layoutParams
             LayoutParams layoutParams = view.getLayoutParams();
             if (layoutParams == null) {
-                System.out.println("layoutParams == null");
+           //     System.out.println("layoutParams == null");
                 layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, Utils.dp2px(getContext(), 100));
                 view.setLayoutParams(layoutParams);
             }
@@ -305,7 +305,7 @@ public class RefreshLayout extends ViewGroup {
 
                     // 判断是否拦截事件
                     if ((moveDown && !canMoveDown) || (moveUp && canMoveUp)) {
-                        System.out.println("moveSpinner   offsetY = " + offsetY);
+                  //      System.out.println("moveSpinner   offsetY = " + offsetY);
                         moveSpinner(offsetY);
                         return true;
                     }
@@ -368,20 +368,19 @@ public class RefreshLayout extends ViewGroup {
         }
 
         // 1. 在RESET状态时，第一次下拉出现header的时候，设置状态变成PULL
-        if (state == State.RESET && currentTargetOffsetTop == START_POSITION && targetY > 0) {
+        if (state == State.RESET && currentTargetOffsetTop <= START_POSITION && targetY > 0) {
             changeState(State.PULL);
         }
 
         // 2. 在PULL或者COMPLETE状态时，header回到顶部的时候，状态变回RESET
-        if (currentTargetOffsetTop > START_POSITION && targetY <= START_POSITION) {
+        if (currentTargetOffsetTop >= START_POSITION && targetY <= START_POSITION) {
             if (state == State.PULL || state == State.COMPLETE) {
                 changeState(State.RESET);
             }
         }
-        System.out.println("currentTargetOffsetTop = " + currentTargetOffsetTop + "  targetY = " + targetY + "  totalDragDistance = " + totalDragDistance);
+        System.out.println("State = " + state + "   currentTargetOffsetTop = " + currentTargetOffsetTop + "  targetY = " + targetY + "  totalDragDistance = " + totalDragDistance);
         // 3. 如果是从底部回到顶部的过程(往上滚动)，并且手指是松开状态, 并且当前是PULL状态，状态变成LOADING，这时候我们需要强制停止autoScroll
         if (state == State.PULL && !isTouch && currentTargetOffsetTop > totalDragDistance && targetY <= totalDragDistance) {
-            System.out.println("3. 如果是从底部回到顶部的过程(往上滚动)，并且手指是松开状态, 并且当前是PULL状态，状态变成LOADING，这时候我们需要强制停止autoScroll");
             autoScroll.stop();
             changeState(State.LOADING);
             if (refreshListener != null) {
@@ -435,7 +434,6 @@ public class RefreshLayout extends ViewGroup {
                     break;
             }
         } else {
-            System.out.println("refreshHeader = null");
         }
     }
 

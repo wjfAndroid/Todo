@@ -2,10 +2,12 @@ package com.wjf.wxdemo.fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.wjf.wxdemo.ChatActivity;
 import com.wjf.wxdemo.R;
 import com.wjf.wxdemo.adapter.FirstLVAdapter;
 import com.wjf.wxdemo.util.ThreadUtils;
@@ -40,10 +43,20 @@ public class FirstFragment extends BaseFragment {
     @Bind(R.id.add)
     ImageView add;
     List<EMConversation> mConversations = new ArrayList<>();
+    FirstLVAdapter adapter;
 
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_first;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
@@ -66,8 +79,20 @@ public class FirstFragment extends BaseFragment {
                 ThreadUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        FirstLVAdapter adapter = new FirstLVAdapter(mConversations, mActivity);
+                        adapter = new FirstLVAdapter(mConversations, mActivity);
                         lvFirst.setAdapter(adapter);
+                        lvFirst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(mConversations.get(position).getUserName());
+                                //指定会话消息未读数清零
+                                conversation.markAllMessagesAsRead();
+
+                                Intent intent = new Intent(mActivity, ChatActivity.class);
+                                intent.putExtra("name", mConversations.get(position).getUserName());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
             }

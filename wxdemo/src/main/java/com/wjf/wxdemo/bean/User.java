@@ -1,5 +1,8 @@
 package com.wjf.wxdemo.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -8,6 +11,7 @@ import cn.bmob.v3.BmobObject;
 public class User extends BmobObject {
     String userNmae;
     String userPsw;
+    ArrayList<String> FriendID;
 
     public String getUserNmae() {
         return userNmae;
@@ -25,11 +29,21 @@ public class User extends BmobObject {
         this.userPsw = userPsw;
     }
 
+
+    public List<String> getFriendID() {
+        return FriendID;
+    }
+
+    public void setFriendID(ArrayList<String> friendID) {
+        FriendID = friendID;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userNmae='" + userNmae + '\'' +
                 ", userPsw='" + userPsw + '\'' +
+                ", FriendID=" + FriendID +
                 '}';
     }
 }

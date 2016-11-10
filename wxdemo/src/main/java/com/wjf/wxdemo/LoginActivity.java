@@ -29,7 +29,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     Button btLogin;
     @Bind(R.id.tv_regist)
     TextView tvRegist;
-    public static final String TAG="LoginActivity";
+    public static final String TAG = "LoginActivity";
+    @Bind(R.id.tv_logout)
+    TextView tvLogout;
 
     @Override
     public int getLayoutRes() {
@@ -41,25 +43,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.init();
         btLogin.setOnClickListener(this);
         tvRegist.setOnClickListener(this);
+        tvLogout.setOnClickListener(this);
 
     }
 
     private void login() {
         String userName = etId.getText().toString().trim();
         String password = etPsw.getText().toString().trim();
-        EMClient.getInstance().login(userName,password,new EMCallBack() {//回调
+        EMClient.getInstance().login(userName, password, new EMCallBack() {//回调
             @Override
             public void onSuccess() {
 //                EMClient.getInstance().groupManager().loadAllGroups();
 //                EMClient.getInstance().chatManager().loadAllConversations();
                 startActivity(MainActivity.class);
                 Log.d(TAG, "登录聊天服务器成功！");
+
+//                EMClient.getInstance().chatManager().loadAllConversations();
+//                EMClient.getInstance().groupManager().loadAllGroups();
             }
 
             @Override
-            public void onProgress(int progress, String status) {
-
-            }
+            public void onProgress(int progress, String status) {}
 
             @Override
             public void onError(int code, String message) {
@@ -76,10 +80,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 login();
                 break;
             case R.id.tv_regist:
-                startActivity(RegisterActivity.class);
+                startActivity(RegisterActivity.class,false);
+                break;
+            case R.id.tv_logout:
+                String user = EMClient.getInstance().getCurrentUser();
+                if (user != null) {
+                    System.out.println("user = " + user);
+                    EMClient.getInstance().logout(true, new EMCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            Log.e(TAG, "退出成功 ");
+                        }
+                        @Override
+                        public void onError(int i, String s) {
+                            Log.e(TAG, "退出失败 s:" + s);
+                        }
+                        @Override
+                        public void onProgress(int i, String s) {}
+                    });
+                }
                 break;
         }
-
     }
 
     /**
@@ -106,7 +127,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (requestCode) {
             case REQUEST_WRITE_EXTERNAL_STORAGE:
                 if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
-                  //  login();
+                    //  login();
                     toast("权限允许");
                 } else {
                     toast("权限拒绝");

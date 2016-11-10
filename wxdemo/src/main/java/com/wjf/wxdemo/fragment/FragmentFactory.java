@@ -34,10 +34,10 @@ public class FragmentFactory {
                 return mFirstFragment;
             case R.id.contacts:
                 getSecondFragment();
-                return mFirstFragment;
+                return mSecondFragment;
             case R.id.dynamic:
                 getThirdFragment();
-                return mFirstFragment;
+                return mThirdFragment;
         }
         return null;
     }

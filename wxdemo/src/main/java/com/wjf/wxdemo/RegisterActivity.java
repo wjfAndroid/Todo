@@ -53,6 +53,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         user.setUserNmae(id);
         user.setUserPsw(psw);
 
+
         user.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {

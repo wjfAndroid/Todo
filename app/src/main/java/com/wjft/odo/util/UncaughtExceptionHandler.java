@@ -15,6 +15,9 @@ import java.util.Locale;
  * Create By Anthony on 2016/1/16
  * 当前类注释:异常处理类，将我们的异常信息保存到本地SD卡上面或者上传到服务器
  * 此处保存到sd卡
+ * 其他地方调用 需要设置 动态权限
+ * Thread.setDefaultUncaughtExceptionHandler(
+ new UncaughtExceptionHandler(getApplicationContext(), Thread.getDefaultUncaughtExceptionHandler()));
  */
 public class UncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
     private static final boolean DEBUG =true;

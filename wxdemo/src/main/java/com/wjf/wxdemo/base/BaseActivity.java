@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.wjf.wxdemo.util.ToastUtil;
 
 import butterknife.ButterKnife;
 
@@ -24,16 +28,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     private InputMethodManager mInputMethodManager;
+    Activity mActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
         init();
     }
 
-    protected void init() {}
+    protected void init() {
+        mActivity = this;
+    }
 
     public abstract int getLayoutRes();
 
@@ -73,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void toast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast(this, msg);
     }
 
     protected void hideKeyBoard() {

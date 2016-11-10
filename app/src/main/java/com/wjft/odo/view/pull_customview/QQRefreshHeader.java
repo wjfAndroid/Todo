@@ -71,7 +71,6 @@ public class QQRefreshHeader extends FrameLayout implements RefreshHeader {
     public void onPositionChange(float currentPos, float lastPos, float refreshPos, boolean isTouch, RefreshLayout.State state) {
         imgvProgress.setVisibility(INVISIBLE);
         imgvOk.setVisibility(INVISIBLE);
-        System.out.println("currentPos = [" + currentPos + "], lastPos = [" + lastPos + "], refreshPos = [" + refreshPos + "], isTouch = [" + isTouch + "], state = [" + state + "]");
         if (currentPos > refreshPos && lastPos <= refreshPos) {
             if (isTouch && state == RefreshLayout.State.PULL){
                 tv.setText("释放立即刷新");

@@ -13,9 +13,7 @@ import java.util.List;
 
 import cn.bmob.v3.Bmob;
 
-/**
- * Created by Administrator on 2016/11/3.
- */
+
 public class App extends Application {
     Application appContext;
     private String TAG = "App";
@@ -32,6 +30,16 @@ public class App extends Application {
 
     private void initEase() {
         appContext = this;
+
+        EMOptions options = new EMOptions();
+// 默认添加好友时，是不需要验证的，改成需要验证
+        options.setAcceptInvitationAlways(true);
+//初始化
+        EMClient.getInstance().init(appContext, options);
+//在做打包混淆时，关闭debug模式，避免消耗不必要的资源
+        EMClient.getInstance().setDebugMode(true);
+
+
         int pid = android.os.Process.myPid();
         String processAppName = getAppName(pid);
 // 如果APP启用了远程的service，此application:onCreate会被调用2次
@@ -44,14 +52,6 @@ public class App extends Application {
             // 则此application::onCreate 是被service 调用的，直接返回
             return;
         }
-
-        EMOptions options = new EMOptions();
-// 默认添加好友时，是不需要验证的，改成需要验证
-        options.setAcceptInvitationAlways(false);
-//初始化
-        EMClient.getInstance().init(appContext, options);
-//在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-        EMClient.getInstance().setDebugMode(true);
 
     }
 

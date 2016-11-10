@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void toast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
     }
 
     protected void startActivity(Class activity) {

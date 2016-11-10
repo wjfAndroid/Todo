@@ -71,14 +71,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateUnreadCount() {
-        ThreadUtils.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                BottomBarTab tab = bottomBar.getTabWithId(R.id.conversations);
-                int count = EMClient.getInstance().chatManager().getUnreadMsgsCount();
-                tab.setBadgeCount(count);
-            }
-        });
+//        ThreadUtils.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                BottomBarTab tab = bottomBar.getTabWithId(R.id.conversations);
+//                int count = EMClient.getInstance().chatManager().getUnreadMsgsCount();
+//                tab.setBadgeCount(count);
+//            }
+//        });
     }
 
     private EMConnectionListener mEMConnectionListener = new EMConnectionListener() {
@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity {
                 ThreadUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(LoginActivity.class);
+                        startActivity(LoginActivity.class,true);
                         toast("用户登录其他设备");
                     }
                 });

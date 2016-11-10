@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.wjft.odo.view.photo.PhotoActivity">
+
+    <Button
+        android:id="@+id/bt_take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="缩略图"/>
+
+    <ImageView
+        android:id="@+id/imgv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bt_take_photo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全尺寸"
+        android:id="@+id/bt_take_clear_photo"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/bt_take_photo"
+        android:layout_toEndOf="@+id/bt_take_photo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍照并且保存"
+        android:id="@+id/bt_take_save"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/bt_take_clear_photo"
+        android:layout_toEndOf="@+id/bt_take_clear_photo"/>
+
+</RelativeLayout>

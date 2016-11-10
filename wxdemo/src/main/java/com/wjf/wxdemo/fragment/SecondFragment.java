@@ -1,6 +1,7 @@
 package com.wjf.wxdemo.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -72,7 +73,6 @@ public class SecondFragment extends BaseFragment {
                 startActivity(AddFriendActivity.class, false);
             }
         });
-
     }
 
     public void notifyList() {
@@ -80,7 +80,9 @@ public class SecondFragment extends BaseFragment {
             @Override
             public void run() {
                 try {
+                    String user = EMClient.getInstance().getCurrentUser();
                     contacts = EMClient.getInstance().contactManager().getAllContactsFromServer();
+                    System.out.println("user = " + user + "  contacts = " + contacts);
                     ThreadUtils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -91,11 +93,17 @@ public class SecondFragment extends BaseFragment {
                             adapter.setOnClickListener(new SecondLVAdapter.onClickListener() {
                                 @Override
                                 public void onClick(int pos, View view) {
-                                    startActivity(ChatActivity.class);
+                                    Intent intent = new Intent(mActivity, ChatActivity.class);
+                                    intent.putExtra("name", contacts.get(pos));
+                                    startActivity(intent);
+
+
                                 }
                             });
+                            refreshLayout.setRefreshing(false);
                         }
                     });
+
                 } catch (HyphenateException e) {
                     e.printStackTrace();
                     toast("获取失败 e:" + e);
@@ -104,6 +112,4 @@ public class SecondFragment extends BaseFragment {
             }
         });
     }
-
-
 }

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/6/15.
  */
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>  {
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
     private Context context;
     private List<String> data;
@@ -23,7 +23,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public static final int TYPE_HEAD = 1;
     public static final int TYPE_NOMAL = 0;
 
-    public RecycleViewAdapter(Context context, List<String> data){
+    public RecycleViewAdapter(Context context, List<String> data) {
         this.context = context;
         this.data = data;
     }
@@ -31,9 +31,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public RecycleViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if(viewType == TYPE_HEAD && headerView != null){
+        if (viewType == TYPE_HEAD && headerView != null) {
             view = headerView;
-        }else {
+        } else {
             view = LayoutInflater.from(context).inflate(R.layout.item_recycleview, parent, false);
         }
         return new MyViewHolder(view);
@@ -41,7 +41,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(RecycleViewAdapter.MyViewHolder holder, final int position) {
-        if(getItemViewType(position) == TYPE_HEAD)
+        if (getItemViewType(position) == TYPE_HEAD)
             return;
         int pos = getRealPosition(holder);
         holder.tv.setText(data.get(pos));
@@ -49,7 +49,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             holder.tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v,position);
+                    mOnItemClickListener.onItemClick(v, position);
                 }
             });
             holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
@@ -62,31 +62,29 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    public int getRealPosition(RecyclerView.ViewHolder holder){
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
-        return headerView == null ? position : position -1;
+        return headerView == null ? position : position - 1;
     }
 
     @Override
     public int getItemCount() {
-        int count = (data == null ? 0 :data.size());
-        if(headerView != null){
+        int count = (data == null ? 0 : data.size());
+        if (headerView != null) {
             count++;
         }
         return count;
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv;
 
-        public MyViewHolder(View view)
-        {
+        public MyViewHolder(View view) {
             super(view);
-            if(view == headerView)
+            if (view == headerView)
                 return;
-            tv = (TextView)view.findViewById(R.id.tv_recyclerview);
+            tv = (TextView) view.findViewById(R.id.tv_recyclerview);
         }
     }
 
@@ -106,31 +104,33 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        if(headerView == null)
+        if (headerView == null)
             return TYPE_NOMAL;
-        if(position == 0)
+        if (position == 0)
             return TYPE_HEAD;
         return TYPE_NOMAL;
     }
 
-    public void setHeaderView(View headerView){
+    public void setHeaderView(View headerView) {
         this.headerView = headerView;
         headerView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT));
         notifyItemInserted(0);
     }
 
-    public View getHeaderView(){
+    public View getHeaderView() {
         return headerView;
     }
 
     private OnItemClickListener mOnItemClickListener;
-    public interface OnItemClickListener{
+
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
+
         void onItemLongClick(View view, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 }

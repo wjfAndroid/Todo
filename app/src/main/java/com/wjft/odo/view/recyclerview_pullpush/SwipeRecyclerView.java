@@ -178,7 +178,7 @@ public class SwipeRecyclerView extends FrameLayout {
 
 
     private boolean isRefreshViewScroll(int deltaY) {
-        //条件1：deltaY<0，现在处于上下拉的状态；条件2：RecyclerView是否到达底部；
+        //条件1：deltaY<0，现在处于上拉的状态；条件2：RecyclerView是否到达底部；
         //条件3：curTransY<=footerHeight是下拉的偏移量;条件4：是否处于上拉或者下拉状态
         if (deltaY < 0 && !recyclerView.canScrollVertically(1) && curTransY <= footerHeight && !isLoading && !isCancelLoadNext) {
             //   if(deltaY < 0 && RecyclerViewUtil.isVisBottom(recyclerView) && curTransY <= footerHeight && !isLoading && !isCancelLoadNext){
