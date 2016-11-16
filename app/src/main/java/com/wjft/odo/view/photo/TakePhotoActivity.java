@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.wjft.odo.R;
+import com.wjft.odo.util.FileSizeUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,9 +28,12 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.LogManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class TakePhotoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,6 +43,7 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
     Button btGallary;
     @Bind(R.id.imageView)
     ImageView imageView;
+    private String TAG = "TakePhotoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,6 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriContent);
                         startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                     }
-                    System.out.println("uri = " + uri);
                 }
                 break;
             case R.id.bt_gallary:
@@ -84,8 +88,6 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == Activity.RESULT_OK) {
                 cutImage();
-            } else {
-                System.out.println("TAKE_PHOTO  resultCode == Activity.RESULT_OK = " + (resultCode == Activity.RESULT_OK) + "data == null" + (data == null));
             }
         }
         if (requestCode == REQUEST_CROP) {
@@ -93,55 +95,51 @@ public class TakePhotoActivity extends AppCompatActivity implements View.OnClick
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = bundle.getParcelable("data");
                 imageView.setImageBitmap(bitmap);
-            } else {
-                System.out.println("CROP  resultCode == Activity.RESULT_OK = " + (resultCode == Activity.RESULT_OK) + "data == null" + (data == null));
             }
         }
     }
 
-    //    private void getImage(Uri uri) {
-//        try {
-//            InputStream inputStream = getContentResolver().openInputStream(uri);
-//            cutImage(uri);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
+
     private void cutImage() {
         if (uri != null) {
             Intent intent = new Intent("com.android.camera.action.CROP");
             //如果api>=24使用content：//
             //如果api<24使用filename：//
-            intent.setDataAndType(uri, "image/*");
-
+            intent.setDataAndType(uri, "image/*");//需要裁剪的照片地址
+            //裁剪框是否显示
             intent.putExtra("crop", true);
-
-            if (android.os.Build.MANUFACTURER.contains("HUAWEI")) {//华为特殊处理 不然会显示圆
+            //华为特殊处理 不然会显示圆   裁剪框比例
+            if (android.os.Build.MANUFACTURER.contains("HUAWEI")) {
                 intent.putExtra("aspectX", 9998);
                 intent.putExtra("aspectY", 9999);
             } else {
                 intent.putExtra("aspectX", 1);
                 intent.putExtra("aspectY", 1);
             }
+            //设置照片大小
             intent.putExtra("outputX", 300);
             intent.putExtra("outputY", 300);
+            //是否返回数据，如果不返回则可以使用uri找到
             intent.putExtra("return-data", true);
-            intent.putExtra("output", uri);
+            intent.putExtra("output", uri);//裁剪完成保存的地址
             intent.putExtra("scale", true);
+
+            intent.putExtra("noFaceDetection", false);//取消人脸识别
 
             startActivityForResult(intent, REQUEST_CROP);
         }
-
     }
 
     String currentFilePath;
+//    File cropFile;
+//    String cropFilePath;
 
     public File createFile() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         String fileName = "JPG_" + timeStamp;
+        //图片保存到/Android/data/com.wjft.odo/files/Pictures/
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File cropDir = getExternalFilesDir(Environment.DIRECTORY_DCIM);
         File file = null;
         try {
             file = File.createTempFile(fileName, ".jpg", storageDir);

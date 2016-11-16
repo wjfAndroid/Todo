@@ -159,19 +159,19 @@ public class PermissionsActivity extends AppCompatActivity {
             for (int i = 0; i < deniedPermission.size(); i++) {
                 switch (deniedPermission.get(i)) {
                     case Manifest.permission.CAMERA:
-                        stringBuilder.append("相机权限;");
+                        stringBuilder.append("相机权限;\n");
                         break;
                     case Manifest.permission.WRITE_APN_SETTINGS:
                     case Manifest.permission.READ_EXTERNAL_STORAGE:
-                        stringBuilder.append("SD卡权限;");
+                        stringBuilder.append("SD卡权限;\n");
                         break;
                     case Manifest.permission.READ_CONTACTS:
                     case Manifest.permission.WRITE_CONTACTS:
                     case Manifest.permission.GET_ACCOUNTS:
-                        stringBuilder.append("获取联系人权限;");
+                        stringBuilder.append("获取联系人权限;\n");
                         break;
                     case Manifest.permission.RECORD_AUDIO:
-                        stringBuilder.append("允许程序录制音频;");
+                        stringBuilder.append("允许程序录制音频;\n");
                         break;
                     case Manifest.permission.READ_PHONE_STATE:
                     case Manifest.permission.CALL_PHONE:
@@ -180,26 +180,26 @@ public class PermissionsActivity extends AppCompatActivity {
                     case Manifest.permission.ADD_VOICEMAIL:
                     case Manifest.permission.USE_SIP:
                     case Manifest.permission.PROCESS_OUTGOING_CALLS:
-                        stringBuilder.append("读取手机状态;");
+                        stringBuilder.append("读取手机状态;\n");
                         break;
                     case Manifest.permission.BODY_SENSORS:
-                        stringBuilder.append("传感器;");
+                        stringBuilder.append("传感器;\n");
                         break;
                     case Manifest.permission.SEND_SMS:
                     case Manifest.permission.RECEIVE_SMS:
                     case Manifest.permission.READ_SMS:
                     case Manifest.permission.RECEIVE_WAP_PUSH:
                     case Manifest.permission.RECEIVE_MMS:
-                        stringBuilder.append("短信权限;");
+                        stringBuilder.append("短信权限;\n");
                         break;
                     case Manifest.permission.READ_CALENDAR:
                     case Manifest.permission.WRITE_CALENDAR:
-                        stringBuilder.append("日历权限;");
+                        stringBuilder.append("日历权限;\n");
                         break;
                 }
             }
         }
-        stringBuilder.append("。去系统设置权限");
+        stringBuilder.append("去系统设置权限");
         return stringBuilder.toString();
     }
 

@@ -40,13 +40,16 @@ import com.wjft.odo.util.NetworkUtils;
 import com.wjft.odo.util.OnClickListener;
 import com.wjft.odo.util.UncaughtExceptionHandler;
 import com.wjft.odo.util.VirtualKeyUtil;
+import com.wjft.odo.view.custom_view.SimpleDemoActivity;
 import com.wjft.odo.view.design.DesignMenuActivity;
+import com.wjft.odo.view.multitype.MultiTypeActivity;
 import com.wjft.odo.view.optimize.BackOptimizeActivity;
 import com.wjft.odo.view.photo.PhotoActivity;
 import com.wjft.odo.view.photo.PhotoMenuActivity;
 import com.wjft.odo.view.pull_customview.PullActivity;
 import com.wjft.odo.view.recyclerview_pullpush.DividerItemDecoration;
 import com.wjft.odo.view.recyclerview_pullpush.SwipeRecyclerViewTest;
+import com.wjft.odo.view.sjff.SjffActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +99,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void init() {
         mBeens.add(new Bean("Recyclerview的下拉刷新和上推加载+侧滑删除，长按拖拽", "下拉刷新采用SwipeRefreshLayout，上推加载采用自定义view，判断是否到达底部，并且判断是否是下拉。拖拽使用ItemTouchHelper"));
-        mBeens.add(new Bean("可以填充任何view的下拉刷新布局，下拉刷新的头布局可以是自定义", "----------------------"));
+        mBeens.add(new Bean("可以填充任何view的下拉刷新布局，下拉刷新的头布局可以是自定义", ""));
         mBeens.add(new Bean("Material Design", ""));
         mBeens.add(new Bean("调用系统相机拍照", ""));
         mBeens.add(new Bean("由于静态的获取网络状态的广播将在7.0取消，", "1.动态注册广播，获取网络状况变化 /n 2.通过jobsheduler和jobservice实现后台操作（）/n 3.通过networkRequest来实现指定状态的操作（其中包括了网络状态）"));
+        mBeens.add(new Bean("一些简单demo", ""));
+        mBeens.add(new Bean("recyclerview有多种子条目类型", "使用MultiType类库实现"));
+        mBeens.add(new Bean("事件分发测试", ""));
     }
 
 
@@ -120,6 +126,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case 4:
                 startActivity(new Intent(this, BackOptimizeActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(this, SimpleDemoActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(this, MultiTypeActivity.class));
+                break;
+            case 7:
+                startActivity(new Intent(this, SjffActivity.class));
                 break;
         }
     }
@@ -215,9 +230,6 @@ public class MainActivity extends Activity implements OnClickListener {
         Thread.setDefaultUncaughtExceptionHandler(
                 new UncaughtExceptionHandler(getApplicationContext(), Thread.getDefaultUncaughtExceptionHandler()));
     }
-
-
-
 
 
 }

@@ -59,8 +59,7 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.wjft.odo.view.photo.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-    >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
@@ -71,6 +70,14 @@
         <activity android:name=".PermissionsActivity">
         </activity>
         <activity android:name=".view.photo.TakePhotoActivity">
+        </activity>
+        <activity android:name=".view.custom_view.ViewDragHelperActivity">
+        </activity>
+        <activity android:name=".view.custom_view.SimpleDemoActivity">
+        </activity>
+        <activity android:name=".view.multitype.MultiTypeActivity">
+        </activity>
+        <activity android:name=".view.sjff.SjffActivity">
         </activity>
     </application>
 
