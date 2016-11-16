@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Todo.iml" filepath="$PROJECT_DIR$/Todo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/leakcanary/leakcanary.iml" filepath="$PROJECT_DIR$/leakcanary/leakcanary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/realmandgreendao/realmandgreendao.iml" filepath="$PROJECT_DIR$/realmandgreendao/realmandgreendao.iml" />
       <module fileurl="file://$PROJECT_DIR$/wxdemo/wxdemo.iml" filepath="$PROJECT_DIR$/wxdemo/wxdemo.iml" />
     </modules>
   </component>

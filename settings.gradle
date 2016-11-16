@@ -1,1 +1,1 @@
-include ':app', ':leakcanary', ':wxdemo'
+include ':app', ':leakcanary', ':wxdemo', ':realmandgreendao'

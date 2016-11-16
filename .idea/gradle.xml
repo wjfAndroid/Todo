@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/leakcanary" />
+            <option value="$PROJECT_DIR$/realmandgreendao" />
             <option value="$PROJECT_DIR$/wxdemo" />
           </set>
         </option>
@@ -18,6 +19,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/leakcanary" />
+            <option value="$PROJECT_DIR$/realmandgreendao" />
             <option value="$PROJECT_DIR$/wxdemo" />
           </set>
         </option>
